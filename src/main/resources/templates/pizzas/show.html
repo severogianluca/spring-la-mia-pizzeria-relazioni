@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}" />
+
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body class="bg-principale">
+    <header th:insert="~{fragments/navbar :: navbar}">
+
+    </header>
+
+    <main class="mb-3 container">
+        <h1 th:text="${pizza.nome}" class="text-center mt-5"></h1>
+
+        <div>
+            <div class="card p-3 mb-4 mt-5">
+                <div class="d-flex">
+                    <div class="card-body">
+                        <h5 th:text="${pizza.nome}" class="card-title"></h5>
+                        <p th:text="${pizza.descrizione}" class="card-text"></p>
+                        <p th:text="|${pizza.prezzo}€|" class="card-text"></p>
+                        <a th:href="@{/pizzas}" type="button" class="btn btn-outline-success">Indietro</a>
+
+                    </div>
+                    <div class="img-container">
+                        <img th:src="${pizza.fotoUrl}" alt="Foto pizza" class="card-img-top img-fluid p-2" />
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </main>
+
+</body>
+
+</html>
