@@ -2,7 +2,9 @@ package org.lessons.java.spring_la_mia_pizzeria_crud.controller;
 
 import java.util.List;
 
+import org.lessons.java.spring_la_mia_pizzeria_crud.model.OffertaSpecialeModel;
 import org.lessons.java.spring_la_mia_pizzeria_crud.model.PizzaModel;
+import org.lessons.java.spring_la_mia_pizzeria_crud.repository.OffertaSpecialeRepository;
 import org.lessons.java.spring_la_mia_pizzeria_crud.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,8 @@ public class PizzaController {
 
     @Autowired
     private PizzaRepository pizzaRepo;
+    @Autowired
+    private OffertaSpecialeRepository offertaSpecialeRepo;
 
     @GetMapping
     public String home(Model model) {
@@ -83,10 +87,21 @@ public class PizzaController {
         return "redirect:/pizzas";
     }
 
-
     @PostMapping("pizzas/delete/{id}")
-    public String delete(@PathVariable Integer id){
+    public String delete(@PathVariable Integer id) {
         pizzaRepo.deleteById(id);
         return "redirect:/pizzas";
+    }
+
+    @GetMapping("/pizzas/{id}/offerta")
+    public String offerta(@PathVariable Integer id, Model model) {
+        OffertaSpecialeModel offertaSpeciale = new OffertaSpecialeModel();
+
+        PizzaModel pizza = pizzaRepo.findById(id).get();
+        offertaSpeciale.setPizza(pizzaRepo.findById(id).get());
+
+        model.addAttribute("offertaSpeciale", offertaSpeciale);
+        model.addAttribute("pizza", pizza);
+        return "offertaSpeciale/create";
     }
 }

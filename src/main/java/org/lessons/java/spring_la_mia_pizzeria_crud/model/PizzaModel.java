@@ -3,6 +3,7 @@ package org.lessons.java.spring_la_mia_pizzeria_crud.model;
 import java.math.BigDecimal;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -39,9 +40,8 @@ public class PizzaModel {
     @Column(name = "prezzo")
     private BigDecimal prezzo;
 
-    @OneToMany(mappedBy = "pizza")
-    private List<OffertaSpeciale> offerteSpeciali;
-
+    @OneToMany(mappedBy = "pizza", cascade = { CascadeType.ALL})
+    private List<OffertaSpecialeModel> offerteSpeciali;
 
     public PizzaModel() {
     }
@@ -53,6 +53,14 @@ public class PizzaModel {
         this.descrizione = descrizione;
         this.fotoUrl = fotoUrl;
         this.prezzo = prezzo;
+    }
+
+    public List<OffertaSpecialeModel> getOfferteSpeciali() {
+        return offerteSpeciali;
+    }
+
+    public void setOfferteSpeciali(List<OffertaSpecialeModel> offerteSpeciali) {
+        this.offerteSpeciali = offerteSpeciali;
     }
 
     public Integer getId() {
