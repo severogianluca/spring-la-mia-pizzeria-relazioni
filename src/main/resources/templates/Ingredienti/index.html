@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body class="bg-principale">
+    <header th:insert="~{fragments/navbar :: navbar}"></header>
+
+    <main class="container">
+
+        <div class="d-flex justify-content-between align-items-center mt-4 mb-4">
+            <h1 class="">I nostri ingredienti</h1>
+            <div>
+                <a th:href="@{/ingredienti/create}" type="button" class="btn btn-success">Aggiungi ingrediente</a>
+            </div>
+        </div>
+        <div th:unless="*{ingredienti.size() > 0}">
+            <div class=" alert alert-warning">
+                <h4>Non è presente nessun ingrediente</h4>
+            </div>
+        </div>
+        <div th:if="*{ingredienti.size() > 0}">
+
+<div th:each="ingrediente : ${ingredienti}" class="card mb-3">
+    <div class="d-flex">
+        <div class="card-body">
+            <a th:href="@{/ingredienti/{id}(id=${ingrediente.id})}" th:text="|${ingrediente.nome} 👈|"
+                class="card-title text-decoration-none fw-bold fs-5"></a>
+            <p th:text="${ingrediente.descrizione}" class="card-text"></p>
+
+            <div class="d-flex">
+                <button type="button" class="btn btn-outline-danger me-2" data-bs-toggle="modal"
+                    th:attr="data-bs-target=|#deleteModal-${ingrediente.id}|">
+                    Elimina
+                </button>
+
+                <a th:href="@{/ingredienti/edit/{id}(id=${ingrediente.id})}"
+                    class="btn btn-outline-success">Modifica</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" th:id="|deleteModal-${ingrediente.id}|" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" th:text="|Stai per eliminare '${ingrediente.nome}'|"></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Chiudi"></button>
+                </div>
+                <div class="modal-body">
+                    Se sei sicuro di voler procedere, clicca su <strong>Elimina</strong>.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Annulla</button>
+                    <form th:action="@{/ingredienti/delete/{id}(id=${ingrediente.id})}" method="post">
+                        <button type="submit" class="btn btn-danger">Elimina</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        </div>
+
+
+
+
+    </main>
+
+    <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>
