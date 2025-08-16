@@ -27,8 +27,8 @@
                             method="post">
 
 
-                            <!-- <input type="hidden" th:field="*{ingrediente.id}" />
-                            <input type="hidden" th:field="*{id}" /> -->
+                            
+                            <input type="hidden" th:field="*{id}" /> 
 
 
 
@@ -59,8 +59,8 @@
 
 
                             <div class="mb-3 d-flex justify-content-between">
-                                <a th:href="@{/ingredienti/{id}(id=${ingrediente.id})}" type="button"
-                                    class="btn btn-danger">Indietro</a>
+                                <a th:href="@{/ingredienti}" type="button" class="btn btn-danger">Indietro</a>
+
                                 <input type="submit" class="btn btn-success" value="save">
 
                             </div>

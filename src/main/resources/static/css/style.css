@@ -7,8 +7,6 @@ a.card {
   text-decoration: none;
 }
 
-
-
 .bg-principale {
   background-color: #faf3e0;
 }
@@ -21,26 +19,29 @@ a.card {
   max-height: 130px;
   object-fit: cover;
   width: auto;
-
 }
-
 
 .img-container {
   width: 220px;
   height: auto;
-    padding-top: 25px;
+  padding-top: 25px;
 }
 
 .img-container img {
   width: 100%;
   height: 100%;
   border-radius: 15px;
+}
 
-.offerta{
+.offerta {
   width: 40px;
   height: 40px;
 }
 
+table.table.custom-table,
+table.table.custom-table th,
+table.table.custom-table td {
+    --bs-table-bg: #faf3e0;
+  width: 100%;
+  table-layout: fixed;
 }
-
-

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.lessons.java.spring_la_mia_pizzeria_crud.model.OffertaSpecialeModel;
 import org.lessons.java.spring_la_mia_pizzeria_crud.model.PizzaModel;
+import org.lessons.java.spring_la_mia_pizzeria_crud.repository.IngredienteRepository;
 import org.lessons.java.spring_la_mia_pizzeria_crud.repository.OffertaSpecialeRepository;
 import org.lessons.java.spring_la_mia_pizzeria_crud.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class PizzaController {
     @Autowired
     private PizzaRepository pizzaRepo;
     @Autowired
-    private OffertaSpecialeRepository offertaSpecialeRepo;
+    private IngredienteRepository ingredienteRepository;
 
     @GetMapping
     public String home(Model model) {
@@ -44,6 +45,7 @@ public class PizzaController {
     @GetMapping("/pizzas/{id}")
     public String getPizzaById(@PathVariable("id") int id, Model model) {
         model.addAttribute("pizza", pizzaRepo.findById(id).get());
+        model.addAttribute("ingredienti", ingredienteRepository.findAll());
 
         return "pizzas/show";
     }
@@ -58,6 +60,7 @@ public class PizzaController {
     @GetMapping("/pizzas/create")
     public String create(Model model) {
         model.addAttribute("pizza", new PizzaModel());
+        model.addAttribute("ingredienti", ingredienteRepository.findAll());
         return "pizzas/create";
     }
 
@@ -65,6 +68,7 @@ public class PizzaController {
     public String store(@Valid @ModelAttribute("pizza") PizzaModel formPizza, BindingResult bindingResult,
             Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("ingredienti", ingredienteRepository.findAll());
             return "pizzas/create";
         }
         pizzaRepo.save(formPizza);
@@ -74,6 +78,8 @@ public class PizzaController {
     @GetMapping("/pizzas/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
         model.addAttribute("pizza", pizzaRepo.findById(id).get());
+        model.addAttribute("ingredienti", ingredienteRepository.findAll());
+
         return "pizzas/edit";
     }
 
@@ -81,6 +87,7 @@ public class PizzaController {
     public String update(@Valid @ModelAttribute("pizza") PizzaModel formPizza, BindingResult bindingResult,
             Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("ingredienti", ingredienteRepository.findAll());
             return "pizzas/edit";
         }
         pizzaRepo.save(formPizza);

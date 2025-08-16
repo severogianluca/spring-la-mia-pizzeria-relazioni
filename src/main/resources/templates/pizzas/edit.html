@@ -21,7 +21,6 @@
                     <h1 class="text-center mt-5 mb-4" th:text="|Modifica sulla pizza: ${pizza.nome}"></h1>
                     <div>
                         <form id="pizza-form" th:action="@{/pizzas/edit/{id}(id=${pizza.id})}" th:object="${pizza}"
-                        
                             method="post">
 
                             <!-- <div th:if="${#fields.hasErrors()}">
@@ -43,6 +42,16 @@
                                         <li th:each="error : ${#fields.errors('nome')}" th:text="${error}"></li>
 
                                     </ul>
+                                </div>
+                            </div>
+
+
+                            <div class="class mb-3">
+                                <div class="single-ingrediente form-check" th:each="ingrediente : ${ingredienti}">
+                                    <input type="checkbox" th:id="|ingrediente-${ingrediente.id}|"
+                                        th:field="*{ingredienti}" th:value="${ingrediente.id}">
+                                    <label th:for="|ingrediente-${ingrediente.id}|" class="form-check-label"
+                                        th:text="${ingrediente.nome}"></label>
                                 </div>
                             </div>
 
