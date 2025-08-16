@@ -27,7 +27,7 @@
                         <th:block th:if="${pizza.getIngredienti().size() > 0}">
                             <h3 class="mb-2">ingredienti:</h3>
                             <ul class="mb-3 ps-4">
-                                <li th:each="ingrediente : ${ingredienti}" th:text="${ingrediente.nome}" />
+                                <li th:each="ingrediente : *{ingredienti}" th:text="${ingrediente.nome}" />
                             </ul>
                         </th:block>
 
